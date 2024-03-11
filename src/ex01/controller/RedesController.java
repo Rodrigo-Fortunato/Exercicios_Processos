@@ -80,6 +80,60 @@ public class RedesController {
     }
 
     public void ping(){
+        String os = os();
+    try{
+        if (os.contains("Windows")){
+            //Recebe o retorno do tipo "Process" gerado pelo programa executado
+            Process p =Runtime.getRuntime().exec("ping -4 -n 1 www.google.com.br");
+
+            InputStream fluxo = p.getInputStream();
+            //Converte para String o fluxo de bits
+            InputStreamReader leitor = new InputStreamReader(fluxo);
+            //Guardando em um buffer a String convertida anteriormente
+            BufferedReader buffer = new BufferedReader(leitor);
+            //Leitura do buffer, enquanto grava em uma variavel e vai pra proxima linha
+            String linha = buffer.readLine();
+
+            //Mantem a leitura do buffer, até que ele chegue ao final
+            while (linha != null) {
+                    /*A leitura do processo chamado deve verificar cada linha e, imprimir, apenas, o nome do
+                        adaptador de rede e o IPv4, portanto, adaptadores sem IPv4 não devem ser mostrados*/
+
+
+                if (linha.contains("M�dia")){
+                    int inicio = linha.indexOf("M�dia");
+                    System.out.println(linha.substring(inicio));
+                }
+                linha = buffer.readLine();
+            }
+            buffer.close();
+            leitor.close();
+            fluxo.close();
+
+        }else{//Linux
+            //Recebe o retorno do tipo "Process" gerado pelo programa executado
+            Process p =Runtime.getRuntime().exec("ifconfig");
+            InputStream fluxo = p.getInputStream();
+            //Converte para String o fluxo de bits
+            InputStreamReader leitor = new InputStreamReader(fluxo);
+            //Guardando em um buffer a String convertida anteriormente
+            BufferedReader buffer = new BufferedReader(leitor);
+            //Leitura do buffer, enquanto grava em uma variavel e vai pra proxima linha
+            String linha = buffer.readLine();
+
+            //Mantem a leitura do buffer, até que ele chegue ao final
+            while (linha != null) {
+                System.out.println(linha);
+                linha = buffer.readLine();
+            }
+            buffer.close();
+            leitor.close();
+            fluxo.close();
+        }
+    }catch (Exception e){
+        System.out.println("Sistema Operacional invalido!");
+    }
+
 
 
     }
