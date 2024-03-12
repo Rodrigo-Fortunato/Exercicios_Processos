@@ -53,7 +53,7 @@ public class RedesController {
 
             }else{//Linux
                 //Recebe o retorno do tipo "Process" gerado pelo programa executado
-                Process p =Runtime.getRuntime().exec("ifconfig");
+                Process p =Runtime.getRuntime().exec("ip addr");
                 InputStream fluxo = p.getInputStream();
                 //Converte para String o fluxo de bits
                 InputStreamReader leitor = new InputStreamReader(fluxo);
