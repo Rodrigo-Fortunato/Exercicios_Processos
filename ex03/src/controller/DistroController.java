@@ -16,7 +16,7 @@ public class DistroController {
                 Runtime.getRuntime().exec("cat /etc/os-release");
 
             } else {
-                System.out.println("Sistema operacional Windows não suportado");
+                System.out.println("Sistema operacional não suportado");
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
