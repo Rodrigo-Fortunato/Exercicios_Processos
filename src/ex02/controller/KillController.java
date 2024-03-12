@@ -31,6 +31,19 @@ public class KillController {
                 fluxo.close();
 
             } else {
+                Process p = Runtime.getRuntime().exec("ps -ef");
+                InputStream fluxo = p.getInputStream();
+                InputStreamReader leitor = new InputStreamReader(fluxo);
+                BufferedReader buffer = new BufferedReader(leitor);
+
+                String processos = buffer.readLine();
+                while (processos != null) {
+                    System.out.println(processos);
+                    processos = buffer.readLine();
+                }
+                buffer.close();
+                leitor.close();
+                fluxo.close();
 
             }
 

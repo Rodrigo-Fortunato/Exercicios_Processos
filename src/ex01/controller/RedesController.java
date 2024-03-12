@@ -112,7 +112,8 @@ public class RedesController {
 
         }else{//Linux
             //Recebe o retorno do tipo "Process" gerado pelo programa executado
-            Process p =Runtime.getRuntime().exec("ifconfig");
+            Process p =Runtime.getRuntime().exec("ping -4 -c 10 www.google.com.br");
+
             InputStream fluxo = p.getInputStream();
             //Converte para String o fluxo de bits
             InputStreamReader leitor = new InputStreamReader(fluxo);
@@ -123,7 +124,14 @@ public class RedesController {
 
             //Mantem a leitura do buffer, até que ele chegue ao final
             while (linha != null) {
-                System.out.println(linha);
+                    /*A leitura do processo chamado deve verificar cada linha e, imprimir, apenas, o nome do
+                        adaptador de rede e o IPv4, portanto, adaptadores sem IPv4 não devem ser mostrados*/
+
+
+                if (linha.contains("M�dia")){
+                    int inicio = linha.indexOf("M�dia");
+                    System.out.println(linha.substring(inicio));
+                }
                 linha = buffer.readLine();
             }
             buffer.close();
